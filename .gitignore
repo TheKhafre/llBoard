@@ -1,7 +1,1 @@
 *.sqlite3
-*.pyc
-*.pyo
-*.pyd
-*.swp
-*.db
-*.log
