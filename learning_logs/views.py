@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Topic
+from .forms import TopicForm
 
 # Create your views here.
 def index(request):
@@ -18,3 +19,20 @@ def topic(request, topic_id):
     entries = topic.entry_set.order_by('-date_added')
     context = {'topic': topic, 'entries': entries}
     return render(request, 'learning_logs/topic.html', context)
+
+
+def new_topic(request):
+    # creating new topic for user
+    if request.method != 'POST':
+        # i.e no data was submitted, go ahead to create a new one
+        form = TopicForm()
+    else:
+        # if data was submitted, then process it
+        form = TopicForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('learning_logs:topics')
+        
+    # show an invalid form if any error
+    context = {'form':form}
+    return render(request, 'learning_logs/new_topic.html', context)
