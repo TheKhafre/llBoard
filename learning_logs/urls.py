@@ -14,4 +14,6 @@ urlpatterns = [
     path('new_topic/', views.new_topic, name='new_topic'),
     # path to add new entry for users
     path('new_entry/<int:topic_id>/', views.new_entry, name='new_entry'),
+    # path to edit a preexisting entry
+    path('edit_entry/<int:entry_id>/', views.edit_entry, name='edit_entry'),
 ]
